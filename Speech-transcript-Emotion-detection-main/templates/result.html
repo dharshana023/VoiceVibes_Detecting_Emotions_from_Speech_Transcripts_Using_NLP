@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Emotion Detection Results</h1>
+
+        <h2>Overall Emotion: {{ results['overall_emotion'] }}</h2>
+        <h2>Predicted Emotion (SVM): {{ results['predicted_emotion'] }}</h2>
+
+        <h3>Word-Emotion Mapping:</h3>
+        <ul>
+        {% for word, emotion in results['word_emotion_map'].items() %}
+            <li>{{ word }}: {{ emotion }}</li>
+        {% endfor %}
+        </ul>
+
+        <h3>Keywords:</h3>
+        <p>{{ results['keywords'] | join(', ') }}</p>
+
+        <h3>Syntactic Information:</h3>
+        <ul>
+        {% for token_info in results['syntactic_info'] %}
+            <li>Text: {{ token_info['text'] }}, Lemma: {{ token_info['lemma'] }}, POS: {{ token_info['POS'] }}, Dependency: {{ token_info['dependency'] }}</li>
+        {% endfor %}
+        </ul>
+
+        <h3>Identified Topic:</h3>
+        <p>{{ results['specific_topic'] }}</p>
+
+        <a href="/">Analyze another audio file</a>
+    </div>
+</body>
+</html>
